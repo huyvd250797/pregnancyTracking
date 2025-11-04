@@ -1,4 +1,11 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
+import sieuamW6 from "../src/assets/img/W6.jpg";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faVideo } from "@fortawesome/free-solid-svg-icons";
+
 // Sửa lỗi: Thay thế import NPM bằng import CDN URL
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import {
@@ -29,31 +36,43 @@ const weekData = {
     title: "Tuần 2 – Giai đoạn trứng rụng 🌸",
     desc: "Đây là lúc cơ thể sẵn sàng cho sự thụ tinh. Giữ chế độ ăn lành mạnh và ngủ đủ giấc.",
     image: "https://placehold.co/120x120/f472b6/ffffff?text=W2",
+    sieuam: "",
   },
   3: {
     title: "Tuần 3 – Sự sống bắt đầu 🍼",
     desc: "Phôi thai hình thành và bắt đầu di chuyển vào tử cung để làm tổ. Cần tránh các chất kích thích.",
     image: "https://placehold.co/120x120/ec4899/ffffff?text=W3",
+    sieuam: "",
   },
   4: {
     title: "Tuần 4 – Thử thai! 🎉",
     desc: "Đây là lúc bạn có thể thử thai. Phôi thai đang phát triển nhanh chóng.",
     image: "https://placehold.co/120x120/db2777/ffffff?text=W4",
+    sieuam: "",
+  },
+  6: {
+    title: "Tuần 6 – Đã có túi thai! 🎉",
+    desc: "Đây là lúc thai đã vào tử cung và làm tổ.",
+    image: "https://placehold.co/120x120/db2777/ffffff?text=W6",
+    sieuam: sieuamW6,
   },
   12: {
     title: "Tuần 12 – Mốc siêu âm quan trọng 🩺",
     desc: "Bạn đã vượt qua quý 1! Em bé đã có hình hài rõ ràng và cần thực hiện xét nghiệm sàng lọc.",
     image: "https://placehold.co/120x120/be185d/ffffff?text=W12",
+    sieuam: "",
   },
   20: {
     title: "Tuần 20 – Cảm nhận chuyển động 🥰",
     desc: "Thai nhi đã được nửa chặng đường. Mẹ có thể cảm nhận những cú đạp đầu tiên.",
     image: "https://placehold.co/120x120/9d174d/ffffff?text=W20",
+    sieuam: "",
   },
   40: {
     title: "Tuần 40 – Chào đón bé yêu! 👶",
     desc: "Em bé đã sẵn sàng chào đời bất cứ lúc nào. Giữ bình tĩnh và chuẩn bị nhập viện.",
     image: "https://placehold.co/120x120/831843/ffffff?text=W40",
+    sieuam: "",
   },
 };
 
@@ -435,8 +454,8 @@ export default function App() {
       </div>
 
       {/* Phần nhập LMP Thủ Công */}
-      <div className="p-4 border border-pink-200 bg-pink-50 rounded-lg shadow-inner mb-6">
-        <label>Ngày Kinh Cuối (LMP)</label>
+      <div className="p-4  border border-pink-200 bg-pink-50 rounded-lg shadow-inner mb-6">
+        <p className="mb-4">Ngày Kinh Cuối (LMP)</p>
         <div className="flex flex-col sm:flex-row gap-3 items-stretch">
           <input
             id="lmp-date"
@@ -445,7 +464,7 @@ export default function App() {
             onChange={handleLmpChange}
             // Vô hiệu hóa input nếu đang sử dụng ngày khai báo
             disabled={isDeclaredLMPUsed}
-            className={`flex-grow p-2 border-radius ${
+            className={`flex-grow p-2 mb-4 border-radius ${
               isDeclaredLMPUsed
                 ? "bg-gray-100 cursor-not-allowed inputLMP"
                 : "bg-white border-pink-400 inputLMP"
@@ -453,7 +472,7 @@ export default function App() {
           />
 
           {/* Phần quản lý nguồn LMP */}
-          <div className="yourLMPcheckbox border border-indigo-200 bg-indigo-50 rounded-lg shadow-inner mb-6">
+          <div className="yourLMPborder border-indigo-200 bg-indigo-50 rounded-lg shadow-inner mb-6">
             {/* Checkbox Chuyển đổi nguồn */}
             <div className="flex items-center space-x-3 p-2 bg-white rounded-md border border-indigo-200">
               <input
@@ -461,11 +480,11 @@ export default function App() {
                 type="checkbox"
                 checked={isDeclaredLMPUsed}
                 onChange={handleLmpSourceToggle}
-                className=" h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
+                className="yourLMPcheckbox  h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer"
               />
               <label
                 htmlFor="use-declared-lmp"
-                className="text-sm font-medium text-gray-700 cursor-pointer"
+                className="text-sm mb-4 ml-4 font-medium text-gray-700 cursor-pointer"
               >
                 Ngày LMP của bạn
               </label>
@@ -491,27 +510,29 @@ export default function App() {
       </div>
 
       {/* Hiển thị Tuần Đang Xem và Tuần Thực Tế */}
-      <div className="text-center mb-6 p-4 border-b-2 border-pink-500">
-        <p className="text-base text-gray-600 font-medium">
-          Bạn đang xem tuần:
-        </p>
+      <div className="flex align-center flex-col text-center mb-6 p-4 border-b-2 border-pink-500">
         <div className="flex justify-center items-baseline gap-2">
-          <span className="text-6xl font-extrabold text-pink-600">{week}</span>
-          <span className="text-2xl text-gray-400">/ 40</span>
+          <span className="text-6xl font-extrabold text-pink-600">
+            {`Bạn đang xem tuần: ` + week + `/`}
+          </span>
+          <span className="text-2xl text-gray-400">40</span>
         </div>
         {lmpDate && (
           <>
-            <p className="text-sm text-gray-700 mt-1">
-              (Tuần thai thực tế:{" "}
+            <p className="mt-4 text-sm text-gray-700 mt-1">
+              (Tuần thai của bạn:{" "}
               <span className="font-bold text-pink-800">
-                {actualCurrentWeek}
+                <b style={{ color: "red" }}>{actualCurrentWeek}</b>
               </span>
               )
             </p>
             {/* Bổ sung hiển thị khoảng ngày */}
             {weekDateRange.startDate && (
-              <p className="text-sm text-pink-500 font-bold mt-2 bg-pink-100 p-1 rounded-md inline-block shadow-inner">
-                📅 Ngày: {weekDateRange.startDate} - {weekDateRange.endDate}
+              <p
+                style={{ fontWeight: "bold" }}
+                className="mt-6 text-sm text-pink-500 font-bold mt-2 bg-pink-100 p-1 rounded-md inline-block shadow-inner"
+              >
+                📅 {weekDateRange.startDate} - {weekDateRange.endDate}
               </p>
             )}
           </>
@@ -519,63 +540,42 @@ export default function App() {
       </div>
 
       {/* Nút điều hướng tuần */}
-      <div className="flex justify-center gap-4 mb-6">
-        <button
-          className="px-4 py-2 border border-pink-400 text-pink-600 bg-white rounded-full hover:bg-pink-50 transition flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
-          onClick={handlePrev}
-          disabled={week === 1}
-        >
-          {/* SVG Tuần trước */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-4 h-4"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <span className="hidden sm:inline">Tuần trước</span>
-        </button>
+      <div className=" flex justify-center gap-4 mb-6 mt-6">
+        <div className="btn-Week " onClick={handlePrev} disabled={week === 1}>
+          <a className="btn-Week__link btn-Week__linkPrev">
+            <span className="btn-Week__icon">
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </span>
+            Tuần trước
+          </a>
+        </div>
 
-        <button
-          className="px-4 py-2  bg-pink-600 rounded-lg hover:bg-pink-700 disabled:opacity-50 transition shadow-md whitespace-nowrap"
+        <div
+          className="btn-Week "
           onClick={handleGoToCurrentWeek}
           disabled={!lmpDate || week === actualCurrentWeek}
         >
-          Tuần Hiện Tại
-        </button>
+          <a className="btn-Week__link btn-Week__linkNow">Tuần Hiện Tại</a>
+        </div>
 
-        <button
-          className="px-4 py-2 border border-pink-400 text-pink-600 bg-white rounded-full hover:bg-pink-50 transition flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
-          onClick={handleNext}
-          disabled={week === 40}
-        >
-          <span className="hidden sm:inline">Tuần kế</span>
-          {/* SVG Tuần kế */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-4 h-4"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
+        <div className="btn-Week " onClick={handleNext} disabled={week === 40}>
+          <a className="btn-Week__link btn-Week__linkNext">
+            Tuần kế
+            <span className="btn-Week__icon">
+              <FontAwesomeIcon icon={faChevronRight} />
+            </span>
+          </a>
+        </div>
       </div>
 
       {/* Hiển thị nội dung tuần */}
-      <div className=" p-4 bg-white border border-gray-200 rounded-xl shadow-md">
+      <div className="p-4 bg-white border border-gray-200 rounded-xl shadow-md">
         <div className="flex justify-center flex-col items-center gap-4 mb-4 border-b pb-4">
           <h3 className="text-xl font-semibold text-gray-800 leading-snug">
-            {current.title}
+            <span>
+              <FontAwesomeIcon icon={faVideo} />
+            </span>
+            {` - ` + current.title}
           </h3>
           <p className="text-gray-700 leading-relaxed text-base">
             {current.desc}
@@ -583,7 +583,17 @@ export default function App() {
           <img
             src={current.image}
             alt={`Thai tuần ${week}`}
-            className=" rounded-full object-cover shadow-lg border-2 border-pink-300 flex-shrink-0"
+            className="rounded-full object-cover shadow-lg border-2 border-pink-300 flex-shrink-0"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "W" + week;
+            }}
+          />
+
+          <img
+            src={current.sieuam}
+            alt={`Thai tuần ${week}`}
+            className="rounded-full object-cover shadow-lg border-2 border-pink-300 flex-shrink-0"
             onError={(e) => {
               e.target.onerror = null;
               e.target.src = "W" + week;

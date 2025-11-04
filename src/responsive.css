@@ -1,0 +1,30 @@
+/* PC */
+@media (min-width: 1024px) {
+}
+
+/* TABLET & PC */
+@media (min-width: 740px) {
+}
+
+/* TABLET */
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+
+/* MOBILE & TABLET */
+@media (max-width: 1023px) {
+}
+
+/* MOBILE */
+@media (max-width: 739px) {
+  .btn-Week__link {
+    display: block;
+  }
+
+  .btn-Week__link:hover {
+  }
+
+  .btn-Week__linkPrev,
+  .btn-Week__linkNext {
+    border: none;
+  }
+}

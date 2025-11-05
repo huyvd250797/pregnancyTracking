@@ -1,6 +1,8 @@
 import Header from "../components/Header";
 import NavTabs from "../components/NavTabs";
 import PregnancyWeek from "../pages/PregnancyWeek";
+import Nutrition from "../pages/Nutrition";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
 import "./responsive.css";

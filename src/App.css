@@ -1,9 +1,15 @@
-/* #root {
-  max-width: 1280px;
+#root {
+  /* max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: center; */
+  --primary-color-male: #007bff;
+  --primary-color-female: #ffd5ec;
+  --secondary-color-female: #ff50b0;
+  --border-button-female: 1px solid #ffc9e7;
+  --border-button-radius: 8px;
 }
+/* 
 
 .logo {
   height: 6em;
@@ -41,6 +47,8 @@
   color: #888;
 } */
 
+/** ------------------ COMMON ------------------ */
+
 .mb-4 {
   margin-bottom: 4px;
 }
@@ -49,11 +57,27 @@
   margin-left: 4px;
 }
 
+.mt-2 {
+  margin-top: 2px;
+}
+
 .mt-4 {
   margin-top: 4px;
 }
 .mt-6 {
   margin-top: 6px;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.align-center {
+  align-items: center;
 }
 
 /** ------------------ HEADER ------------------ */
@@ -120,7 +144,7 @@
   cursor: pointer;
   border: 1px solid #ffc9e7;
   border-bottom: none;
-  background-color: #ffd5ec;
+  background-color: var(--primary-color-female);
   border-radius: 8px 8px 0 0;
 }
 
@@ -133,20 +157,12 @@
   border-bottom: 1px solid white; /* Tạo hiệu ứng "lift" */
   position: relative;
   top: 1px; /* Đẩy lên một chút */
-  color: #ff50b0;
+  color: var(--secondary-color-female);
 }
 
 /** ------------------ PregnancyWeek ------------------ */
 .bgPreWeek {
-  background-color: #ffd5ec;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.align-center {
-  align-items: center;
+  background-color: var(--primary-color-female);
 }
 
 .inputLMP {
@@ -169,13 +185,13 @@
 
 .btn-Week {
   width: 100%;
-  color: #ff50b0;
+  color: var(--secondary-color-female);
   text-align: center;
 }
 
 .btn-Week__link {
   padding: 10px;
-  border: 1px solid #ff50b0;
+  border: 1px solid var(--secondary-color-female);
   border-radius: 8px;
 }
 
@@ -184,10 +200,31 @@
 }
 
 .btn-Week__icon {
-  color: #ff50b0;
+  color: var(--secondary-color-female);
 }
 
 .btn-Week__link:disabled {
   background-color: #aaaaaa !important;
   cursor: not-allowed;
+}
+
+/** ------------------ Nutrition ------------------ */
+
+.nutrition-container {
+  background-color: var(--primary-color-female);
+}
+
+.nutrition__menu {
+  background-color: #fdf2f8;
+}
+
+.nutrition__menu-btnRand {
+  background-color: var(--primary-color-female);
+  border: var(--border-button-female);
+  border-radius: var(--border-button-radius);
+  padding: 6px;
+}
+
+.nutrition__menu-btnRand:hover {
+  background-color: #ffeaf5;
 }

@@ -36,43 +36,36 @@ const weekData = {
     title: "Tuần 2 – Giai đoạn trứng rụng 🌸",
     desc: "Đây là lúc cơ thể sẵn sàng cho sự thụ tinh. Giữ chế độ ăn lành mạnh và ngủ đủ giấc.",
     image: "https://placehold.co/120x120/f472b6/ffffff?text=W2",
-    sieuam: "",
   },
   3: {
     title: "Tuần 3 – Sự sống bắt đầu 🍼",
     desc: "Phôi thai hình thành và bắt đầu di chuyển vào tử cung để làm tổ. Cần tránh các chất kích thích.",
     image: "https://placehold.co/120x120/ec4899/ffffff?text=W3",
-    sieuam: "",
   },
   4: {
     title: "Tuần 4 – Thử thai! 🎉",
     desc: "Đây là lúc bạn có thể thử thai. Phôi thai đang phát triển nhanh chóng.",
     image: "https://placehold.co/120x120/db2777/ffffff?text=W4",
-    sieuam: "",
   },
   6: {
     title: "Tuần 6 – Đã có túi thai! 🎉",
     desc: "Đây là lúc thai đã vào tử cung và làm tổ.",
-    image: "https://placehold.co/120x120/db2777/ffffff?text=W6",
-    sieuam: sieuamW6,
+    image: sieuamW6,
   },
   12: {
     title: "Tuần 12 – Mốc siêu âm quan trọng 🩺",
     desc: "Bạn đã vượt qua quý 1! Em bé đã có hình hài rõ ràng và cần thực hiện xét nghiệm sàng lọc.",
     image: "https://placehold.co/120x120/be185d/ffffff?text=W12",
-    sieuam: "",
   },
   20: {
     title: "Tuần 20 – Cảm nhận chuyển động 🥰",
     desc: "Thai nhi đã được nửa chặng đường. Mẹ có thể cảm nhận những cú đạp đầu tiên.",
     image: "https://placehold.co/120x120/9d174d/ffffff?text=W20",
-    sieuam: "",
   },
   40: {
     title: "Tuần 40 – Chào đón bé yêu! 👶",
     desc: "Em bé đã sẵn sàng chào đời bất cứ lúc nào. Giữ bình tĩnh và chuẩn bị nhập viện.",
     image: "https://placehold.co/120x120/831843/ffffff?text=W40",
-    sieuam: "",
   },
 };
 
@@ -582,16 +575,6 @@ export default function App() {
           </p>
           <img
             src={current.image}
-            alt={`Thai tuần ${week}`}
-            className="rounded-full object-cover shadow-lg border-2 border-pink-300 flex-shrink-0"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "W" + week;
-            }}
-          />
-
-          <img
-            src={current.sieuam}
             alt={`Thai tuần ${week}`}
             className="rounded-full object-cover shadow-lg border-2 border-pink-300 flex-shrink-0"
             onError={(e) => {

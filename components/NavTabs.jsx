@@ -21,6 +21,7 @@
 
 import React, { useState } from "react";
 import PregnancyWeek from "../pages/PregnancyWeek";
+import Nutrition from "../pages/Nutrition";
 
 // --- 1. Dữ liệu các Tab ---
 const tabData = [
@@ -32,7 +33,7 @@ const tabData = [
   {
     id: "tab2",
     title: "Thực đơn",
-    content: "Các món nên và không nên ăn trong thai kỳ",
+    content: <Nutrition />,
   },
   {
     id: "tab3",

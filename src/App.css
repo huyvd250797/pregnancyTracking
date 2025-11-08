@@ -8,6 +8,7 @@
   --secondary-color-female: #ff50b0;
   --border-button-female: 1px solid #ffc9e7;
   --border-button-radius: 8px;
+  --border-primary-female: 1px solid var(--secondary-color-female);
 }
 /* 
 
@@ -80,13 +81,40 @@
   align-items: center;
 }
 
-/** ------------------ HEADER ------------------ */
+/** ---------------------------------- MODAL ---------------------------------- */
+.modal-closeBtn {
+  /* z-index: 9999; */
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 50px;
+  padding: 0px 10px 0px 10px;
+  opacity: 0.5;
+}
+
+.modal-backdrop {
+  background-color: #555555;
+  /* height: 100vh;
+  width: 100vw; */
+  opacity: 0.8;
+  /* z-index: 9998; */
+}
+
+.modal-content {
+  /* z-index: 9999; */
+}
+
+.modal-content--img {
+  object-fit: contain;
+}
+
+/** ---------------------------------- HEADER ---------------------------------- */
 .appName {
   padding-top: 10px;
   font-size: 2rem;
 }
 
-/** ------------------ NAV ------------------ */
+/** ---------------------------------- NAV ---------------------------------- */
 .navMenu {
   justify-content: space-around;
 }
@@ -160,7 +188,7 @@
   color: var(--secondary-color-female);
 }
 
-/** ------------------ PregnancyWeek ------------------ */
+/** ---------------------------------- PregnancyWeek ---------------------------------- */
 .bgPreWeek {
   background-color: var(--primary-color-female);
 }
@@ -208,7 +236,7 @@
   cursor: not-allowed;
 }
 
-/** ------------------ Nutrition ------------------ */
+/** ---------------------------------- Nutrition ---------------------------------- */
 
 .nutrition-container {
   background-color: var(--primary-color-female);
@@ -229,29 +257,6 @@
   background-color: #ffeaf5;
 }
 
-/** ---------------------------------- MODAL ---------------------------------- */
-.modal-closeBtn {
-  /* z-index: 9999; */
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 50px;
-  padding: 0px 10px 0px 10px;
-  opacity: 0.5;
-}
-
-.modal-backdrop {
-  background-color: #555555;
-  /* height: 100vh;
-  width: 100vw; */
-  opacity: 0.8;
-  /* z-index: 9998; */
-}
-
-.modal-content {
-  /* z-index: 9999; */
-}
-
-.modal-content--img {
-  object-fit: contain;
+.border-female {
+  border: var(--border-primary-female);
 }

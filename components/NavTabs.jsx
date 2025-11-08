@@ -38,7 +38,7 @@ const tabData = [
   {
     id: "tab3",
     title: "Lịch trình",
-    content: "Vui lòng liên hệ qua email support@example.com để được hỗ trợ.",
+    content: "Lịch trình khám thai định kỳ.",
   },
   {
     id: "tab4",

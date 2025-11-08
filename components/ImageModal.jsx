@@ -50,7 +50,7 @@ export default function ImageModal({ src, alt = "Ảnh xem trước" }) {
           src={src}
           alt={alt}
           onClick={(e) => e.stopPropagation()} // <<< THÊM SỰ KIỆN NÀY ĐỂ GIỮ MODAL MỞ KHI CLICK VÀO ẢNH
-          className="modal-content--img  max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl object-contain border border-gray-600"
+          className="modal-content--img  max-w-[90vw] max-h-[85vh] rounded-lg shadow-2xl object-contain "
         />
       </div>
     </>

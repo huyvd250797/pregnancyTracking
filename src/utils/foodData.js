@@ -52,7 +52,6 @@ export const fruitGuide = {
     "Cam 🍊",
     "Lê 🍐",
     "Bơ 🥑",
-    "Kiwi 🥝",
     "Dâu tây 🍓",
     "Xoài chín 🥭",
   ],
@@ -62,5 +61,28 @@ export const fruitGuide = {
     "Nhãn (ăn ít) 🍈",
     "Vải 🔴",
     "Mít 🟤",
+  ],
+};
+
+// 🥬 Rau nên và không nên ăn
+export const vegetableGuide = {
+  shouldEat: [
+    "Rau bina (cải bó xôi) 🥬",
+    "Súp lơ xanh 🥦",
+    "Cải xoăn 🥗",
+    "Bí đỏ 🎃",
+    "Cà rốt 🥕",
+    "Khoai lang 🍠",
+    "Mồng tơi 🌱",
+    "Rau dền 🍃",
+    "Bí xanh 🥒",
+  ],
+  avoid: [
+    "Rau ngót 🚫",
+    "Rau răm ⚠️",
+    "Ngải cứu ❌",
+    "Măng tươi 🎋",
+    "Giá đỗ sống 🦠",
+    "Củ dền sống 🧄",
   ],
 };

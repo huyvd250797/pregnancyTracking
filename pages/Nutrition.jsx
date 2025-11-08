@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { foodMenu, fruitGuide } from "../src/utils/foodData";
+import { foodMenu, fruitGuide, vegetableGuide } from "../src/utils/foodData";
 
 export default function FoodGuide() {
   // -----------------------------
@@ -23,6 +23,9 @@ export default function FoodGuide() {
   // Nếu Boss có nhiều tuần, có thể tạo foodMenuWeek[week]
   // -----------------------------
   const dayData = foodMenu[menuIndex];
+
+  // 1. State vẫn cần thiết để lưu trữ trạng thái toggle
+  const [isActive, setIsActive] = useState(false);
 
   // -----------------------------
   // 🎨 Giao diện
@@ -67,31 +70,74 @@ export default function FoodGuide() {
       </div>
 
       {/* --- Trái cây nên / không nên --- */}
-      <div className="flex justify-around mt-6 grid md:grid-cols-2 gap-6">
-        <div className="bg-green-100 p-5 rounded-2xl shadow-sm">
-          <h3 className="text-lg font-bold text-green-600 mb-2">
-            ✅ Trái cây nên ăn
-          </h3>
-          <ul className="list-disc pl-6 text-left">
-            {fruitGuide.shouldEat.map((fruit, index) => (
-              <li className="mt-2" key={index}>
-                {fruit}
-              </li>
-            ))}
-          </ul>
+      <div className="collapse collapse-arrow border-female">
+        <input type="checkbox" className="peer" />
+        <div className="collapse-title " onClick={() => setIsActive(!isActive)}>
+          🍊 Trái cây
         </div>
+        <div className="collapse-content ">
+          <div className="flex justify-around mt-6 grid md:grid-cols-2 gap-6">
+            <div className="bg-green-100 p-5 rounded-2xl shadow-sm">
+              <h3 className="text-lg font-bold text-green-600 mb-2">
+                ✅ Trái cây nên ăn
+              </h3>
+              <ul className="list-disc pl-6 text-left">
+                {fruitGuide.shouldEat.map((fruit, index) => (
+                  <li className="mt-2" key={index}>
+                    {fruit}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        <div className="bg-red-100 p-5 rounded-2xl shadow-sm">
-          <h3 className="text-lg font-bold text-red-600 mb-2">
-            🚫 Trái cây cần tránh
-          </h3>
-          <ul className="list-disc pl-6 text-left">
-            {fruitGuide.avoid.map((fruit, index) => (
-              <li className="mt-2" key={index}>
-                {fruit}
-              </li>
-            ))}
-          </ul>
+            <div className="bg-red-100 p-5 rounded-2xl shadow-sm">
+              <h3 className="text-lg font-bold text-red-600 mb-2">
+                🚫 Trái cây cần tránh
+              </h3>
+              <ul className="list-disc pl-6 text-left">
+                {fruitGuide.avoid.map((fruit, index) => (
+                  <li className="mt-2" key={index}>
+                    {fruit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* --- Rau củ nên / không nên --- */}
+      <div className="collapse collapse-arrow border-female">
+        <input type="checkbox" className="peer" />
+        <div className="collapse-title peer-checked:">🥬 Rau củ</div>
+        <div className="collapse-content">
+          <div className="flex justify-around mt-6 grid md:grid-cols-2 gap-6">
+            <div className="bg-green-100 p-5 rounded-2xl shadow-sm">
+              <h3 className="text-lg font-bold text-green-600 mb-2">
+                ✅ Rau củ nên ăn
+              </h3>
+              <ul className="list-disc pl-6 text-left">
+                {vegetableGuide.shouldEat.map((fruit, index) => (
+                  <li className="mt-2" key={index}>
+                    {fruit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-red-100 p-5 rounded-2xl shadow-sm">
+              <h3 className="text-lg font-bold text-red-600 mb-2">
+                🚫 Rau củ cần tránh
+              </h3>
+              <ul className="list-disc pl-6 text-left">
+                {vegetableGuide.avoid.map((fruit, index) => (
+                  <li className="mt-2" key={index}>
+                    {fruit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -3,12 +3,13 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 // siêu âm theo tuần
 import sieuamImgW6 from "../src/assets/img/sieuam-img-W6.jpg";
 import sieuamImgW7 from "../src/assets/img/sieuam-img-W7.jpg";
-import sieuamVideoW7 from "../src/assets/video/sieuam-video-W7.mp4";
+// import sieuamVideoW7 from "../src/assets/video/sieuam-video-W7.mp4";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 // Sửa lỗi: Thay thế import NPM bằng import CDN URL
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -35,54 +36,90 @@ const weekData = {
   1: {
     title: "Tuần 1 – Khởi đầu hành trình 💖",
     desc: "Cơ thể mẹ bắt đầu chuẩn bị cho việc thụ thai. Hãy bổ sung axit folic và giữ tâm lý thoải mái.",
+    todo1: "",
+    todo2: "",
+    todo3: "",
     image: "https://placehold.co/120x120/f9a8d4/ffffff?text=W1",
     video: "",
   },
   2: {
     title: "Tuần 2 – Giai đoạn trứng rụng 🌸",
     desc: "Đây là lúc cơ thể sẵn sàng cho sự thụ tinh. Giữ chế độ ăn lành mạnh và ngủ đủ giấc.",
+    todo1: "",
+    todo2: "",
+    todo3: "",
     image: "https://placehold.co/120x120/f472b6/ffffff?text=W2",
     video: "",
   },
   3: {
     title: "Tuần 3 – Sự sống bắt đầu 🍼",
     desc: "Phôi thai hình thành và bắt đầu di chuyển vào tử cung để làm tổ. Cần tránh các chất kích thích.",
+    todo1: "",
+    todo2: "",
+    todo3: "",
     image: "https://placehold.co/120x120/ec4899/ffffff?text=W3",
     video: "",
   },
   4: {
     title: "Tuần 4 – Thử thai! 🎉",
     desc: "Đây là lúc bạn có thể thử thai. Phôi thai đang phát triển nhanh chóng.",
+    todo1: "",
+    todo2: "",
+    todo3: "",
     image: "https://placehold.co/120x120/db2777/ffffff?text=W4",
     video: "",
   },
   6: {
     title: "Tuần 6 – Đã có túi thai! 🎉",
     desc: "Đây là lúc thai đã vào tử cung và làm tổ.",
+    todo1: "✔️ Chế độ ăn uống giàu chất xơ, ngăn ngừa táo bón",
+    todo2: "✔️ Bổ sung Axit folic",
+    todo3: "",
     image: sieuamImgW6,
     video: "",
   },
   7: {
-    title: "Tuần 7 – Đã phôi và tim thai ! 🎉",
+    title: "Tuần 7 – Đã phôi và tim thai ! 💓",
     desc: "Đây là lúc những nhịp đập đầu tiên của bé.",
+    todo2: "✔️ Bổ sung Axit folic",
+    todo1: "❌ Tránh thực phẩm chứa caffein",
+    todo3: "",
     image: sieuamImgW7,
-    video: sieuamVideoW7,
+    video: "",
+  },
+  8: {
+    title: "Tuần 8 – Bé đang phát triển rất tốt",
+    desc: "Đây là lúc những nhịp đập đầu tiên của bé.",
+    todo2: "✔️ Chế độ ăn uống giàu Canxi",
+    todo1: "❌ Tránh thực phẩm chứa caffein",
+    todo3: "",
+    image: "",
+    video: "",
   },
   12: {
     title: "Tuần 12 – Mốc siêu âm quan trọng 🩺",
     desc: "Bạn đã vượt qua quý 1! Em bé đã có hình hài rõ ràng và cần thực hiện xét nghiệm sàng lọc.",
+    todo1: "",
+    todo2: "",
+    todo3: "",
     image: "https://placehold.co/120x120/be185d/ffffff?text=W12",
     video: "",
   },
   20: {
     title: "Tuần 20 – Cảm nhận chuyển động 🥰",
     desc: "Thai nhi đã được nửa chặng đường. Mẹ có thể cảm nhận những cú đạp đầu tiên.",
+    todo1: "",
+    todo2: "",
+    todo3: "",
     image: "https://placehold.co/120x120/9d174d/ffffff?text=W20",
     video: "",
   },
   40: {
     title: "Tuần 40 – Chào đón bé yêu! 👶",
     desc: "Em bé đã sẵn sàng chào đời bất cứ lúc nào. Giữ bình tĩnh và chuẩn bị nhập viện.",
+    todo1: "",
+    todo2: "",
+    todo3: "",
     image: "https://placehold.co/120x120/831843/ffffff?text=W40",
     video: "",
   },
@@ -593,6 +630,15 @@ export default function App() {
           </h3>
           <p className="text-gray-700 leading-relaxed text-base">
             {current.desc}
+          </p>
+          <p className="text-gray-700 leading-relaxed text-base">
+            {current.todo1}
+          </p>
+          <p className="text-gray-700 leading-relaxed text-base">
+            {current.todo2}
+          </p>
+          <p className="text-gray-700 leading-relaxed text-base">
+            {current.todo3}
           </p>
 
           {/* Áp dụng open modal */}

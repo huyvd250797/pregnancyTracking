@@ -72,9 +72,7 @@ export default function FoodGuide() {
       {/* --- Trái cây nên / không nên --- */}
       <div className="collapse collapse-arrow border-female">
         <input type="checkbox" className="peer" />
-        <div className="collapse-title " onClick={() => setIsActive(!isActive)}>
-          🍊 Trái cây
-        </div>
+        <div className="collapse-title ">🍊 Trái cây</div>
         <div className="collapse-content peer-checked">
           <div className="flex justify-around mt-6 grid md:grid-cols-2 gap-6">
             <div className="bg-green-100 p-5 rounded-2xl shadow-sm">

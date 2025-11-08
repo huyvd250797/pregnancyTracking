@@ -158,7 +158,7 @@ const calculateCurrentWeek = (lmpDateStr) => {
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
   // Tuần thai được tính từ tuần 1 (ngày 0-6 là tuần 1)
-  let currentWeek = Math.floor(diffDays / 7) + 1;
+  let currentWeek = Math.floor(diffDays / 7);
 
   // Giới hạn trong khoảng 1 đến 40 tuần
   if (currentWeek < 1) currentWeek = 1;
@@ -215,7 +215,6 @@ export default function App() {
 
   // NEW: State cho tính năng khai báo LMP
   const [isDeclaredLMPUsed, setIsDeclaredLMPUsed] = useState(false); // Mặc định UNCHECKED/FALSE
-
   const [isLoading, setIsLoading] = useState(true);
 
   // -----------------------------
@@ -237,42 +236,51 @@ export default function App() {
   // ⚙️ Khởi tạo Firebase và Xác thực
   // -----------------------------
   useEffect(() => {
-    try {
-      const firebaseConfig = JSON.parse(
-        typeof __firebase_config !== "undefined" ? __firebase_config : "{}"
-      );
-      const app = initializeApp(firebaseConfig);
-      const firestore = getFirestore(app);
-      const authInstance = getAuth(app);
+    // try {
+    //   const firebaseConfig = JSON.parse(
+    //     typeof __firebase_config !== "undefined" ? __firebase_config : "{}"
+    //   );
+    //   const app = initializeApp(firebaseConfig);
+    //   const firestore = getFirestore(app);
+    //   const authInstance = getAuth(app);
 
-      setDb(firestore);
-      setAuth(authInstance);
+    //   setDb(firestore);
+    //   setAuth(authInstance);
 
-      // Thêm setLogLevel('debug') để hỗ trợ gỡ lỗi theo hướng dẫn
-      setLogLevel("debug");
+    //   // Thêm setLogLevel('debug') để hỗ trợ gỡ lỗi theo hướng dẫn
+    //   setLogLevel("debug");
 
-      const authenticate = async () => {
-        const initialAuthToken =
-          typeof __initial_auth_token !== "undefined"
-            ? __initial_auth_token
-            : null;
-        if (initialAuthToken) {
-          await signInWithCustomToken(authInstance, initialAuthToken);
-        } else {
-          await signInAnonymously(authInstance);
-        }
-        setUserId(authInstance.currentUser?.uid || crypto.randomUUID());
-        setIsAuthReady(true);
-      };
+    //   const authenticate = async () => {
+    //     const initialAuthToken =
+    //       typeof __initial_auth_token !== "undefined"
+    //         ? __initial_auth_token
+    //         : null;
+    //     if (initialAuthToken) {
+    //       await signInWithCustomToken(authInstance, initialAuthToken);
+    //     } else {
+    //       await signInAnonymously(authInstance);
+    //     }
+    //     setUserId(authInstance.currentUser?.uid || crypto.randomUUID());
+    //     setIsAuthReady(true);
+    //   };
 
-      authenticate();
-    } catch (error) {
-      console.error("Firebase Initialization Error:", error);
-      setIsAuthReady(true);
-      // FIX: Đảm bảo isLoading được đặt thành false để ứng dụng không bị kẹt ở màn hình tải
-      setIsLoading(false);
+    //   authenticate();
+    // } catch (error) {
+    //   console.error("Firebase Initialization Error:", error);
+    //   setIsAuthReady(true);
+    //   // FIX: Đảm bảo isLoading được đặt thành false để ứng dụng không bị kẹt ở màn hình tải
+    // }
+    setIsLoading(false);
+
+    // Nếu có ngày LMP lưu lại
+    if (lmpDate) {
+      localStorage.setItem("lmpDate", lmpDate);
     }
-  }, []);
+    // Nếu có ngày LMP lưu tuần thai
+    if (week) {
+      localStorage.setItem("currentWeek", week.toString());
+    }
+  }, [lmpDate, week]);
 
   // -----------------------------
   // 💾 Hàm lưu dữ liệu lên Firestore
@@ -395,6 +403,8 @@ export default function App() {
     setWeek((prevWeek) => {
       const newWeek = Math.max(1, prevWeek - 1);
       saveData(newWeek, lmpDate, isDeclaredLMPUsed);
+      // ✅ cập nhật localStorage khi đổi tuần
+      localStorage.setItem("currentWeek", newWeek.toString());
       return newWeek;
     });
   };
@@ -406,31 +416,10 @@ export default function App() {
     setWeek((prevWeek) => {
       const newWeek = Math.min(40, prevWeek + 1); // Giới hạn 40 tuần
       saveData(newWeek, lmpDate, isDeclaredLMPUsed);
+      // ✅ cập nhật localStorage khi đổi tuần
+      localStorage.setItem("currentWeek", newWeek.toString());
       return newWeek;
     });
-  };
-
-  // -----------------------------
-  // 📅 Cập nhật Kỳ Kinh Cuối (LMP) Thủ Công
-  // -----------------------------
-  const handleLmpChange = (e) => {
-    // Chỉ cho phép thay đổi nếu KHÔNG sử dụng ngày khai báo
-    if (isDeclaredLMPUsed) {
-      console.warn(
-        "Không thể thay đổi LMP thủ công khi đang sử dụng ngày khai báo."
-      );
-      return;
-    }
-
-    const newLmpDate = e.target.value;
-    setLmpDate(newLmpDate);
-
-    // Cập nhật ngay lập tức tuần hiển thị sang tuần thai thực tế dựa trên LMP mới
-    const calculatedWeek = calculateCurrentWeek(newLmpDate);
-    setWeek(calculatedWeek);
-
-    // Lưu LMP mới và tuần thai hiện tại mới
-    saveData(calculatedWeek, newLmpDate, isDeclaredLMPUsed);
   };
 
   // -----------------------------
@@ -447,6 +436,25 @@ export default function App() {
     setWeek(calculatedWeek);
     // Lưu tuần thai hiện tại mới
     saveData(calculatedWeek, lmpDate, isDeclaredLMPUsed);
+    // ✅ lưu luôn vào localStorage
+    localStorage.setItem("currentWeek", calculatedWeek.toString());
+  };
+
+  // -----------------------------
+  // 📅 Cập nhật Kỳ Kinh Cuối (LMP) Thủ Công
+  // -----------------------------
+  const handleLmpChange = (e) => {
+    if (isDeclaredLMPUsed) return;
+
+    const newLmpDate = e.target.value;
+    setLmpDate(newLmpDate);
+    const calculatedWeek = calculateCurrentWeek(newLmpDate);
+    setWeek(calculatedWeek);
+    saveData(calculatedWeek, newLmpDate, isDeclaredLMPUsed);
+
+    // ✅ lưu luôn vào localStorage
+    localStorage.setItem("lmpDate", newLmpDate);
+    localStorage.setItem("currentWeek", calculatedWeek.toString());
   };
 
   // -----------------------------
@@ -475,16 +483,16 @@ export default function App() {
   // -----------------------------
   // 🎨 Giao diện
   // -----------------------------
-  if (isLoading || !isAuthReady) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
-        {/* Placeholder cho loading indicator */}
-        <p className="text-gray-500 text-lg animate-pulse">
-          Đang tải dữ liệu thai kỳ...
-        </p>
-      </div>
-    );
-  }
+  // if (isLoading || !isAuthReady) {
+  //   return (
+  //     <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
+  //       {/* Placeholder cho loading indicator */}
+  //       <p className="text-gray-500 text-lg animate-pulse">
+  //         Đang tải dữ liệu thai kỳ...
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   // Chuyển đổi định dạng ngày cho hiển thị
   const formatDeclaredLMP = (dateStr) => {
@@ -523,9 +531,9 @@ export default function App() {
           />
 
           {/* Phần quản lý nguồn LMP */}
-          <div className="yourLMPborder border-indigo-200 bg-indigo-50 rounded-lg shadow-inner mb-6">
+          <div className="yourLMP  bg-indigo-50 rounded-lg shadow-inner mb-6">
             {/* Checkbox Chuyển đổi nguồn */}
-            <div className="flex items-center space-x-3 p-2 bg-white rounded-md border border-indigo-200">
+            <div className="flex items-center space-x-3 p-2 bg-white rounded-md">
               <input
                 id=" use-declared-lmp"
                 type="checkbox"
@@ -620,7 +628,7 @@ export default function App() {
       </div>
 
       {/* Hiển thị nội dung tuần */}
-      <div className="p-4 bg-white border border-gray-200 rounded-xl shadow-md">
+      <div className="p-4 bg-white  rounded-xl shadow-md">
         <div className="flex justify-center flex-col items-center gap-4 mb-4 border-b pb-4">
           <h3 className="text-xl font-semibold text-gray-800 leading-snug">
             <span>
@@ -655,7 +663,7 @@ export default function App() {
       </div>
 
       {/* Thông tin LMP đã nhập và Tuần Hiện Tại thực tế (phần này đơn giản hóa) */}
-      <div className="mt-6 p-3 text-center bg-gray-50 text-sm text-gray-600 rounded-lg border border-gray-200">
+      <div className="mt-6 p-3 text-center bg-gray-50 text-sm text-gray-600 rounded-lg ">
         <p>
           <span className="font-semibold text-gray-800">
             Kỳ Kinh Cuối (LMP):{" "}

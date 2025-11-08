@@ -24,9 +24,6 @@ export default function FoodGuide() {
   // -----------------------------
   const dayData = foodMenu[menuIndex];
 
-  // 1. State vẫn cần thiết để lưu trữ trạng thái toggle
-  const [isActive, setIsActive] = useState(false);
-
   // -----------------------------
   // 🎨 Giao diện
   // -----------------------------
@@ -77,7 +74,7 @@ export default function FoodGuide() {
           <div className="flex justify-around mt-6 grid md:grid-cols-2 gap-6">
             <div className="bg-green-100 p-5 rounded-2xl shadow-sm">
               <h3 className="text-lg font-bold text-green-600 mb-2">
-                ✅ Trái cây nên ăn
+                ✅ Nên ăn
               </h3>
               <ul className="list-disc pl-6 text-left">
                 {fruitGuide.shouldEat.map((fruit, index) => (
@@ -90,7 +87,7 @@ export default function FoodGuide() {
 
             <div className="bg-red-100 p-5 rounded-2xl shadow-sm">
               <h3 className="text-lg font-bold text-red-600 mb-2">
-                🚫 Trái cây cần tránh
+                🚫 Cần tránh
               </h3>
               <ul className="list-disc pl-6 text-left">
                 {fruitGuide.avoid.map((fruit, index) => (
@@ -112,7 +109,7 @@ export default function FoodGuide() {
           <div className="flex justify-around mt-6 grid md:grid-cols-2 gap-6">
             <div className="bg-green-100 p-5 rounded-2xl shadow-sm">
               <h3 className="text-lg font-bold text-green-600 mb-2">
-                ✅ Rau củ nên ăn
+                ✅ Nên ăn
               </h3>
               <ul className="list-disc pl-6 text-left">
                 {vegetableGuide.shouldEat.map((fruit, index) => (
@@ -125,7 +122,7 @@ export default function FoodGuide() {
 
             <div className="bg-red-100 p-5 rounded-2xl shadow-sm">
               <h3 className="text-lg font-bold text-red-600 mb-2">
-                🚫 Rau củ cần tránh
+                🚫 Cần tránh
               </h3>
               <ul className="list-disc pl-6 text-left">
                 {vegetableGuide.avoid.map((fruit, index) => (

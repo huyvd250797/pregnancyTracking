@@ -191,6 +191,7 @@
 /** ---------------------------------- PregnancyWeek ---------------------------------- */
 .bgPreWeek {
   background-color: var(--primary-color-female);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .inputLMP {
@@ -240,6 +241,7 @@
 
 .nutrition-container {
   background-color: var(--primary-color-female);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .nutrition__menu {
@@ -259,4 +261,17 @@
 
 .border-female {
   border: var(--border-primary-female);
+}
+
+/** ---------------------------------- Schedule ---------------------------------- */
+.schedule-container {
+  background-color: var(--primary-color-female);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.schedule-item {
+  border-bottom: var(--border-primary-female);
+}
+
+.schedule-title {
 }

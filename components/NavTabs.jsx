@@ -22,6 +22,7 @@
 import React, { useState } from "react";
 import PregnancyWeek from "../pages/PregnancyWeek";
 import Nutrition from "../pages/Nutrition";
+import Schedule from "../pages/Schedule";
 
 // --- 1. Dữ liệu các Tab ---
 const tabData = [
@@ -38,7 +39,7 @@ const tabData = [
   {
     id: "tab3",
     title: "Lịch trình",
-    content: "Lịch trình khám thai định kỳ.",
+    content: <Schedule />,
   },
   {
     id: "tab4",

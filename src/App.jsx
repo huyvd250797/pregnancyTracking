@@ -2,6 +2,9 @@ import Header from "../components/Header";
 import NavTabs from "../components/NavTabs";
 import PregnancyWeek from "../pages/PregnancyWeek";
 import Nutrition from "../pages/Nutrition";
+import ImageModal from "../components/ImageModal";
+
+import sieuamImgW6 from "../src/assets/img/sieuam-img-W6.jpg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";

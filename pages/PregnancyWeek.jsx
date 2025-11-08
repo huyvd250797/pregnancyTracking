@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import sieuamW6 from "../src/assets/img/W6.jpg";
+
+// siêu âm theo tuần
+import sieuamImgW6 from "../src/assets/img/sieuam-img-W6.jpg";
+import sieuamImgW7 from "../src/assets/img/sieuam-img-W7.jpg";
+import sieuamVideoW7 from "../src/assets/video/sieuam-video-W7.mp4";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +25,7 @@ import {
   onSnapshot,
   setLogLevel,
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import ImageModal from "../components/ImageModal";
 // Lưu ý: __app_id, __firebase_config, và __initial_auth_token là các biến toàn cục được cung cấp bởi môi trường Canvas.
 
 // -----------------------------
@@ -31,41 +36,55 @@ const weekData = {
     title: "Tuần 1 – Khởi đầu hành trình 💖",
     desc: "Cơ thể mẹ bắt đầu chuẩn bị cho việc thụ thai. Hãy bổ sung axit folic và giữ tâm lý thoải mái.",
     image: "https://placehold.co/120x120/f9a8d4/ffffff?text=W1",
+    video: "",
   },
   2: {
     title: "Tuần 2 – Giai đoạn trứng rụng 🌸",
     desc: "Đây là lúc cơ thể sẵn sàng cho sự thụ tinh. Giữ chế độ ăn lành mạnh và ngủ đủ giấc.",
     image: "https://placehold.co/120x120/f472b6/ffffff?text=W2",
+    video: "",
   },
   3: {
     title: "Tuần 3 – Sự sống bắt đầu 🍼",
     desc: "Phôi thai hình thành và bắt đầu di chuyển vào tử cung để làm tổ. Cần tránh các chất kích thích.",
     image: "https://placehold.co/120x120/ec4899/ffffff?text=W3",
+    video: "",
   },
   4: {
     title: "Tuần 4 – Thử thai! 🎉",
     desc: "Đây là lúc bạn có thể thử thai. Phôi thai đang phát triển nhanh chóng.",
     image: "https://placehold.co/120x120/db2777/ffffff?text=W4",
+    video: "",
   },
   6: {
     title: "Tuần 6 – Đã có túi thai! 🎉",
     desc: "Đây là lúc thai đã vào tử cung và làm tổ.",
-    image: sieuamW6,
+    image: sieuamImgW6,
+    video: "",
+  },
+  7: {
+    title: "Tuần 7 – Đã phôi và tim thai ! 🎉",
+    desc: "Đây là lúc những nhịp đập đầu tiên của bé.",
+    image: sieuamImgW7,
+    video: sieuamVideoW7,
   },
   12: {
     title: "Tuần 12 – Mốc siêu âm quan trọng 🩺",
     desc: "Bạn đã vượt qua quý 1! Em bé đã có hình hài rõ ràng và cần thực hiện xét nghiệm sàng lọc.",
     image: "https://placehold.co/120x120/be185d/ffffff?text=W12",
+    video: "",
   },
   20: {
     title: "Tuần 20 – Cảm nhận chuyển động 🥰",
     desc: "Thai nhi đã được nửa chặng đường. Mẹ có thể cảm nhận những cú đạp đầu tiên.",
     image: "https://placehold.co/120x120/9d174d/ffffff?text=W20",
+    video: "",
   },
   40: {
     title: "Tuần 40 – Chào đón bé yêu! 👶",
     desc: "Em bé đã sẵn sàng chào đời bất cứ lúc nào. Giữ bình tĩnh và chuẩn bị nhập viện.",
     image: "https://placehold.co/120x120/831843/ffffff?text=W40",
+    video: "",
   },
 };
 
@@ -355,7 +374,7 @@ export default function App() {
   };
 
   // -----------------------------
-  // 📅 Cập nhật Ngày Kinh Cuối (LMP) Thủ Công
+  // 📅 Cập nhật Kỳ Kinh Cuối (LMP) Thủ Công
   // -----------------------------
   const handleLmpChange = (e) => {
     // Chỉ cho phép thay đổi nếu KHÔNG sử dụng ngày khai báo
@@ -383,7 +402,7 @@ export default function App() {
   const handleGoToCurrentWeek = () => {
     if (!lmpDate) {
       // Thay thế alert() bằng thông báo UI
-      console.log("Vui lòng nhập Ngày Kinh Cuối (LMP) để tính Tuần Hiện Tại.");
+      console.log("Vui lòng nhập Kỳ Kinh Cuối (LMP) để tính Tuần Hiện Tại.");
       return;
     }
 
@@ -448,7 +467,9 @@ export default function App() {
 
       {/* Phần nhập LMP Thủ Công */}
       <div className="p-4  border border-pink-200 bg-pink-50 rounded-lg shadow-inner mb-6">
-        <p className="mb-4">Ngày Kinh Cuối (LMP)</p>
+        <p className="mb-4">
+          Kỳ Kinh Cuối (LMP) - <i>Ngày có kinh đầu tiên của kỳ gần nhất</i>
+        </p>
         <div className="flex flex-col sm:flex-row gap-3 items-stretch">
           <input
             id="lmp-date"
@@ -573,7 +594,9 @@ export default function App() {
           <p className="text-gray-700 leading-relaxed text-base">
             {current.desc}
           </p>
-          <img
+
+          {/* Áp dụng open modal */}
+          <ImageModal
             src={current.image}
             alt={`Thai tuần ${week}`}
             className="rounded-full object-cover shadow-lg border-2 border-pink-300 flex-shrink-0"
@@ -589,7 +612,7 @@ export default function App() {
       <div className="mt-6 p-3 text-center bg-gray-50 text-sm text-gray-600 rounded-lg border border-gray-200">
         <p>
           <span className="font-semibold text-gray-800">
-            Ngày Kinh Cuối (LMP):{" "}
+            Kỳ Kinh Cuối (LMP):{" "}
           </span>
           {lmpDate
             ? new Date(lmpDate).toLocaleDateString("vi-VN")

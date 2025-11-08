@@ -21,7 +21,7 @@ export const foodMenu = [
   {
     day: "Thứ 5",
     breakfast: "Ngũ cốc + sữa hạt",
-    lunch: "Cơm + thịt gà luộc + canh rau ngót",
+    lunch: "Cơm + thịt gà luộc + canh mồng tơi",
     dinner: "Cháo cá + trái cây tươi",
   },
   {

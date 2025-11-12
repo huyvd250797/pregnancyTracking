@@ -5,23 +5,57 @@ export default function CheckupSchedule() {
   const [currentWeek, setCurrentWeek] = useState(null);
   const [hasLmp, setHasLmp] = useState(false);
 
-  // Lấy tuần thai và ngày LMP từ localStorage
-  useEffect(() => {
+  // 🩷 Hàm đọc dữ liệu từ localStorage (tái sử dụng)
+  const loadPregnancyData = () => {
     const lmp = localStorage.getItem("lmpDate");
     const week = localStorage.getItem("currentWeek");
+
+    console.log("🔍 Load from localStorage:", { lmp, week });
 
     if (lmp && week) {
       setHasLmp(true);
       setCurrentWeek(Number(week));
     } else {
       setHasLmp(false);
+      setCurrentWeek(null);
     }
+  };
+
+  // 🚀 Khi component mount hoặc tab thay đổi
+  useEffect(() => {
+    loadPregnancyData();
+
+    // 👂 Lắng nghe khi PregnancyWeek bắn sự kiện cập nhật
+    const handlePregnancyUpdate = (e) => {
+      console.log("🔄 Cập nhật từ event:", e.detail);
+
+      const { lmpDate, week } = e.detail;
+      setHasLmp(!!lmpDate);
+      setCurrentWeek(Number(week));
+    };
+
+    window.addEventListener("pregnancyUpdate", handlePregnancyUpdate);
+
+    // ✅ Cleanup khi unmount
+    return () => {
+      window.removeEventListener("pregnancyUpdate", handlePregnancyUpdate);
+    };
   }, []);
 
   const isCurrentRange = (range) => {
+    if (!currentWeek) return false;
     const [start, end] = range.split("-").map(Number);
     return currentWeek >= start && currentWeek <= end;
   };
+
+  // 🩷 Nếu chưa có dữ liệu, hiển thị đang tải
+  if (hasLmp && currentWeek === null) {
+    return (
+      <div className="text-center p-6 text-gray-500 italic">
+        Đang xác định tuần thai...
+      </div>
+    );
+  }
 
   return (
     <div className="schedule-container p-4 max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-md">
@@ -41,8 +75,7 @@ export default function CheckupSchedule() {
           <div className="text-center mb-6 text-gray-700">
             Tuần thai hiện tại:{" "}
             <span className="font-semibold text-pink-600">
-              {`- Đang tính toán ...`}
-              {/* {currentWeek} */}
+              {currentWeek ?? "Đang tải..."}
             </span>{" "}
           </div>
 

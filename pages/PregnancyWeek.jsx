@@ -158,7 +158,7 @@ const calculateCurrentWeek = (lmpDateStr) => {
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
   // Tuần thai được tính từ tuần 1 (ngày 0-6 là tuần 1)
-  let currentWeek = Math.floor(diffDays / 7);
+  let currentWeek = Math.floor(diffDays / 7) + 1;
 
   // Giới hạn trong khoảng 1 đến 40 tuần
   if (currentWeek < 1) currentWeek = 1;
@@ -210,7 +210,7 @@ export default function App() {
   // -----------------------------
   // 🧠 State quản lý dữ liệu ứng dụng
   // -----------------------------
-  const [week, setWeek] = useState(1);
+  const [week, setWeek] = useState(0);
   const [lmpDate, setLmpDate] = useState(""); // Lưu trữ ngày LMP dưới dạng 'YYYY-MM-DD'
 
   // NEW: State cho tính năng khai báo LMP
@@ -405,6 +405,11 @@ export default function App() {
       saveData(newWeek, lmpDate, isDeclaredLMPUsed);
       // ✅ cập nhật localStorage khi đổi tuần
       localStorage.setItem("currentWeek", newWeek.toString());
+      window.dispatchEvent(
+        new CustomEvent("pregnancyUpdate", {
+          detail: { lmpDate, week: newWeek },
+        })
+      );
       return newWeek;
     });
   };
@@ -418,6 +423,11 @@ export default function App() {
       saveData(newWeek, lmpDate, isDeclaredLMPUsed);
       // ✅ cập nhật localStorage khi đổi tuần
       localStorage.setItem("currentWeek", newWeek.toString());
+      window.dispatchEvent(
+        new CustomEvent("pregnancyUpdate", {
+          detail: { lmpDate, week: newWeek },
+        })
+      );
       return newWeek;
     });
   };
@@ -438,6 +448,11 @@ export default function App() {
     saveData(calculatedWeek, lmpDate, isDeclaredLMPUsed);
     // ✅ lưu luôn vào localStorage
     localStorage.setItem("currentWeek", calculatedWeek.toString());
+    window.dispatchEvent(
+      new CustomEvent("pregnancyUpdate", {
+        detail: { lmpDate, week: calculatedWeek },
+      })
+    );
   };
 
   // -----------------------------

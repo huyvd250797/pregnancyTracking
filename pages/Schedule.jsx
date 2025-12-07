@@ -93,7 +93,7 @@ export default function CheckupSchedule() {
                 <h3 className="schedule-title mt-4 text-lg font-semibold text-gray-800">
                   📌 <b>{item.title} </b>
                   <span className="text-sm text-gray-500">
-                    ({item.weekRange})
+                    (Tuần {item.weekRange})
                   </span>
                 </h3>
 

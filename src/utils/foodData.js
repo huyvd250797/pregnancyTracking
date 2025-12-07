@@ -53,7 +53,8 @@ export const fruitGuide = {
     "Lê 🍐",
     "Bơ 🥑",
     "Dâu tây 🍓",
-    "Xoài chín 🥭",
+    "Xoài chín 🥭 (Vừa phải)",
+    "Dưa hấu 🍉",
   ],
   avoid: [
     "Dứa (thơm) 🍍",
@@ -61,6 +62,8 @@ export const fruitGuide = {
     "Nhãn (ăn ít) 🍈",
     "Vải 🔴",
     "Mít 🟤",
+    "Mãng cầu (na)",
+    "Sầu riêng 🟡",
   ],
 };
 

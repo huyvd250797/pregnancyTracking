@@ -81,6 +81,10 @@
   align-items: center;
 }
 
+/** ---------------------------------- MAIN ---------------------------------- */
+.main {
+  flex-direction: column;
+}
 /** ---------------------------------- MODAL ---------------------------------- */
 .modal-closeBtn {
   /* z-index: 9999; */
@@ -226,6 +230,7 @@
 
 .btn-Week__link:hover {
   background-color: #ffeaf5;
+  cursor: pointer;
 }
 
 .btn-Week__icon {
@@ -274,4 +279,9 @@
 }
 
 .schedule-title {
+}
+
+.copyright {
+  display: flex;
+  bottom: 0;
 }

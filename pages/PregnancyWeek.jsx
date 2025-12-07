@@ -3,6 +3,8 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 // siêu âm theo tuần
 import sieuamImgW6 from "../src/assets/img/sieuam-img-W6.jpg";
 import sieuamImgW7 from "../src/assets/img/sieuam-img-W7.jpg";
+import sieuamImgW8 from "../src/assets/img/sieuam-img-W8.jpg";
+import sieuamImgW10 from "../src/assets/img/sieuam-img-W10.jpg";
 // import sieuamVideoW7 from "../src/assets/video/sieuam-video-W7.mp4";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -93,7 +95,17 @@ const weekData = {
     todo2: "✔️ Chế độ ăn uống giàu Canxi",
     todo1: "❌ Tránh thực phẩm chứa caffein",
     todo3: "",
-    image: "",
+    image: sieuamImgW8,
+    video: "",
+  },
+
+  11: {
+    title: "Tuần 11 – Bé đã có hình dạng rõ đầu mình, chân, tay",
+    desc: "Các cơ quan đang phát triển mạnh mẽ",
+    todo1: "",
+    todo2: "",
+    todo3: "",
+    image: sieuamImgW10,
     video: "",
   },
   12: {
@@ -156,9 +168,10 @@ const calculateCurrentWeek = (lmpDateStr) => {
 
   // Khoảng thời gian tính bằng ngày
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
   // Tuần thai được tính từ tuần 1 (ngày 0-6 là tuần 1)
   let currentWeek = Math.floor(diffDays / 7) + 1;
+  // console.log(parseInt(diffDays / 7));
+  // console.log(diffDays % 7);
 
   // Giới hạn trong khoảng 1 đến 40 tuần
   if (currentWeek < 1) currentWeek = 1;
@@ -520,7 +533,7 @@ export default function App() {
   };
 
   return (
-    <div className="bgPreWeek max-w-xl mx-auto p-4 md:p-6 bg-white shadow-xl rounded-xl min-h-screen border-t-4 border-pink-500">
+    <div className="bgPreWeek max-w-xl mx-auto p-4 md:p-6 bg-white shadow-xl rounded-xl  border-t-4 border-pink-500">
       <div className="text-center">
         {/* <p className="text-xs text-gray-500 mb-6">Mã người dùng: {userId}</p> */}
       </div>

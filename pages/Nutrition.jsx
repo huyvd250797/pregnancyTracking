@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { foodMenu, fruitGuide, vegetableGuide } from "../src/utils/foodData";
+import { faBold } from "@fortawesome/free-solid-svg-icons";
 
 export default function FoodGuide() {
   // -----------------------------
@@ -32,6 +33,9 @@ export default function FoodGuide() {
       <div className="p-4 nutrition__menu">
         <h1 className="text-3xl font-bold text-pink-500 mb-4 text-center">
           🍱 Thực đơn dinh dưỡng
+          <p style={{ color: "red", fontSize: 17, fontWeight: 700 }}>
+            Hạn chế tinh bột, đường
+          </p>
           {/* – Tuần {currentWeek} */}
         </h1>
 
